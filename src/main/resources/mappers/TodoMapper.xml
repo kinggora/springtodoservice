@@ -11,4 +11,30 @@
     INSERT INTO tbl_todo (title, due_date, writer)
     VALUES (#{title}, #{dueDate}, #{writer})
   </insert>
+
+  <select id="selectAll" resultType="com.ssg.todoservice.domain.TodoVO">
+    SELECT * FROM tbl_todo ORDER BY tno DESC
+  </select>
+
+  <select id="selectOne" parameterType="long" resultType="com.ssg.todoservice.domain.TodoVO">
+    SELECT * FROM tbl_todo WHERE tno = #{tno}
+  </select>
+
+  <delete id="delete" parameterType="long">
+    DELETE FROM tbl_todo WHERE tno = #{tno}
+  </delete>
+
+  <update id="update" parameterType="com.ssg.todoservice.domain.TodoVO">
+    UPDATE tbl_todo
+    SET title=#{title}, due_date=#{dueDate}, finished=#{finished}
+    WHERE tno=#{tno}
+  </update>
+
+  <select id="selectList" resultType="com.ssg.todoservice.domain.TodoVO">
+    SELECT * FROM tbl_todo ORDER BY tno DESC LIMIT #{skip}, #{size}
+  </select>
+
+  <select id="getCount" resultType="int">
+    SELECT COUNT(tno) FROM tbl_todo;
+  </select>
 </mapper>
